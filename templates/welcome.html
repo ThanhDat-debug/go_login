@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Chảo mừng bạn!(Thành Đạt)</title>
+    <meta charset="UTF-8">
+    <title>Chào mừng bạn! (Thành Đạt)</title>
 </head>
 <body>
-    <h2>Chào Mừng Bạn Đến Với Trang Web</h2>
+    <h2>Chào mừng, {{.}}!</h2>
+    <p>Bạn đã đăng nhập thành công.</p>
+    <p>Ghé thăm GitHub của tôi tại: <a href="https://github.com/ThanhDat-debug" target="_blank">github.com/ThanhDat-debug</a></p>
+    <form method="post" action="/logout">
+        <button type="submit">Đăng xuất</button>
+    </form>
 </body>
 </html>

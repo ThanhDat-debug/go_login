@@ -1,17 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Login</title>
+    <title>Đăng nhập</title>
 </head>
 <body>
-    <h2>ĐĂNG NHẬP</h2>
-    <form action="/login" method="POST">
-        <label for="username">Tài khoản:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Mật khẩu:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Đăng nhập</button>
+    <h1>Đăng nhập</h1>
+    {{if .Error}}
+        <p style="color: red;">{{.Error}}</p>
+    {{end}}
+    <form method="post" action="/login">
+        <label>Tên đăng nhập:</label><br>
+        <input type="text" name="username"><br><br>
+        <label>Mật khẩu:</label><br>
+        <input type="password" name="password"><br><br>
+        <input type="submit" value="Đăng nhập">
     </form>
-    <a href="/register">Đăng Ký Tại Đây</a>
+    <p>Chưa có tài khoản? <a href="/register">Đăng ký</a></p>
 </body>
 </html>

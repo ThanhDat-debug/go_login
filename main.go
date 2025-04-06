@@ -45,12 +45,21 @@ func registerHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func loginHandler(w http.ResponseWriter, r *http.Request) {
+	tmpl, err := template.ParseFiles("templates/login.html")
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	if r.Method == http.MethodPost {
 		username := r.FormValue("username")
 		password := r.FormValue("password")
 		storedPassword, exists := users[username]
 		if !exists || storedPassword != password {
-			http.Error(w, "Invalid credentials", http.StatusUnauthorized)
+			// Hiển thị lại trang login với thông báo lỗi
+			tmpl.Execute(w, map[string]string{
+				"Error": "Sai tài khoản hoặc mật khẩu!",
+			})
 			return
 		}
 
@@ -58,14 +67,9 @@ func loginHandler(w http.ResponseWriter, r *http.Request) {
 		http.Redirect(w, r, "/welcome", http.StatusSeeOther)
 		return
 	}
-
-	tmpl, err := template.ParseFiles("templates/login.html")
-	if err != nil {
-		http.Error(w, err.Error(), http.StatusInternalServerError)
-		return
-	}
 	tmpl.Execute(w, nil)
 }
+
 func welcomeHandler(w http.ResponseWriter, r *http.Request) {
 	if loggedInUser == "" {
 		http.Redirect(w, r, "/login", http.StatusSeeOther)
